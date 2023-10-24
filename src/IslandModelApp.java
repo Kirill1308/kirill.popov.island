@@ -10,4 +10,5 @@ public class IslandModelApp {
         island.populateIsland();
 
         ConsoleViewProvider.printIslandContent(island);
-    }}
+    }
+}
