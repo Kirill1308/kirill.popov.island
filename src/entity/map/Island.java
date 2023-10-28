@@ -35,7 +35,7 @@ public class Island {
 
     private void loadAnimalProperties() {
         try {
-            FileInputStream input = new FileInputStream("C:\\Users\\kpopo\\IdeaProjects\\kirill.popov.island\\src\\properties\\animal_properties.properties");
+            FileInputStream input = new FileInputStream("./src/properties/animal_properties.properties");
             animalProperties.load(input);
         } catch (IOException e) {
             e.printStackTrace();
@@ -88,5 +88,23 @@ public class Island {
             }
         }
         return count;
+    }
+
+    public void feedAnimals() {
+        for (IslandCell[] islandCells : cells) {
+            for (IslandCell cell : islandCells) {
+                List<Animal> animalsOnCell = cell.getAnimals();
+
+                for (int i = animalsOnCell.size() - 1; i >= 0; i--) {
+                    Animal animal = animalsOnCell.get(i);
+                    animal.eat();
+
+                    // Если животное не голодно (hunger == 0), удаляем его из ячейки
+                    if (animal.getHunger() == 0) {
+                        animalsOnCell.remove(i);
+                    }
+                }
+            }
+        }
     }
 }

@@ -8,7 +8,11 @@ public class IslandModelApp {
     public static void main(String[] args) {
         Island island = new Island(WIDTH, HEIGHT);
         island.populateIsland();
-
         ConsoleViewProvider.printIslandContent(island);
+
+        island.feedAnimals();
+        System.out.println("\nОстались только хищники!\n");
+        ConsoleViewProvider.printIslandContentWithPredators(island);
+
     }
 }
