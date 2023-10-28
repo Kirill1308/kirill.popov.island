@@ -16,6 +16,5 @@ public class IslandModelApp {
         island.feedWolves();
 
         ConsoleViewProvider.printIslandContent(island);
-
     }
 }
