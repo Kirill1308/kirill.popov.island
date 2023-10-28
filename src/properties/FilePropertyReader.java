@@ -7,6 +7,20 @@ import java.util.Properties;
 public class FilePropertyReader {
     private final Properties animalProperties = new Properties();
 
+    public void loadAnimalProperties() {
+        try {
+            FileInputStream input = new FileInputStream("./src/properties/animal_properties.properties");
+            animalProperties.load(input);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String loadMaxQuantity(String animalName) {
+        String maxQuantityKey = animalName + ".max_quantity";
+        return String.valueOf(Integer.parseInt(animalProperties.getProperty(maxQuantityKey, "0")));
+    }
+
     public int loadHungerLevel(String animalName) {
         int hunger = 0;
         try {

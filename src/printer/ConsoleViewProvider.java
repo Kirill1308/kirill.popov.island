@@ -3,8 +3,11 @@ package printer;
 import entity.map.Island;
 import entity.map.IslandCell;
 import entity.organism.animal.Animal;
+import entity.organism.animal.herbivore.Herbivore;
+import entity.organism.plant.Plant;
 
 import java.util.List;
+import java.util.Random;
 
 public class ConsoleViewProvider {
     public static void printIslandContent(Island island) {
@@ -16,29 +19,10 @@ public class ConsoleViewProvider {
                 for (Animal animal : animals) {
                     System.out.println("  - " + animal.name + " (" + animal.category + ")");
                 }
-            }
-        }
-    }
 
-    public static void printIslandContentWithPredators(Island island) {
-        IslandCell[][] cells = island.getCells();
-        for (int i = 0; i < cells.length; i++) {
-            for (int j = 0; j < cells[i].length; j++) {
-                List<Animal> animals = cells[i][j].getAnimals();
-                boolean hasPredator = false;
-                for (Animal animal : animals) {
-                    if (animal.isPredator()) {
-                        hasPredator = true;
-                        break;
-                    }
-                }
-                if (hasPredator) {
-                    System.out.println("Cell [" + i + "][" + j + "]:");
-                    for (Animal animal : animals) {
-                        if (animal.isPredator()) {
-                            System.out.println("  - " + animal.getName() + " (" + animal.getCategory() + ")");
-                        }
-                    }
+                List<Plant> plants = cell.getPlants();
+                for (Plant plant : plants) {
+                    System.out.println("  - " + plant.getName());
                 }
             }
         }

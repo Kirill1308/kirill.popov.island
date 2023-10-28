@@ -10,9 +10,12 @@ public class IslandModelApp {
         island.populateIsland();
         ConsoleViewProvider.printIslandContent(island);
 
-        island.feedAnimals();
-        System.out.println("\nОстались только хищники!\n");
-        ConsoleViewProvider.printIslandContentWithPredators(island);
+
+        System.out.println("\nPredators ate all the herbivores in their cells!\n");
+
+        island.feedWolves();
+
+        ConsoleViewProvider.printIslandContent(island);
 
     }
 }
