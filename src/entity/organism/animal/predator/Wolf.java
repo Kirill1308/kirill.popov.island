@@ -1,15 +1,10 @@
 package entity.organism.animal.predator;
 
-import entity.organism.Organism;
+import settings.BaseOrganismSettings;
 
 public class Wolf extends Predator {
-
     public Wolf() {
-        super("Wolf");
+        super(new BaseOrganismSettings(Wolf.class.getSimpleName()));
     }
 
-    @Override
-    public Organism reproduce() {
-        return null;
-    }
 }

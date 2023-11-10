@@ -1,7 +1,21 @@
 package entity.organism;
 
-import abstraction.entity.Reproducible;
+import lombok.Getter;
+import settings.BaseOrganismSettings;
 
-public abstract class Organism implements Reproducible {
+@Getter
+public abstract class Organism  {
+    private final String icon;
+    private final double defaultWeight;
+    private final int maxPopulation;
+    private final int id;
+    private static int lastId = 0;
+
+    public Organism(BaseOrganismSettings organismSettings) {
+        this.icon = organismSettings.getIcon();
+        this.maxPopulation = organismSettings.getMaxQuantity();
+        this.defaultWeight = organismSettings.getWeight();
+        this.id = lastId++;
+    }
 
 }

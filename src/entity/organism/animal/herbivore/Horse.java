@@ -1,14 +1,10 @@
 package entity.organism.animal.herbivore;
 
-import entity.organism.Organism;
+import settings.BaseOrganismSettings;
 
 public class Horse extends Herbivore {
     public Horse() {
-        super("Horse");
+        super(new BaseOrganismSettings(Horse.class.getSimpleName()));
     }
 
-    @Override
-    public Organism reproduce() {
-        return null;
-    }
 }

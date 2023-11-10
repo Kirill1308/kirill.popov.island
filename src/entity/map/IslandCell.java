@@ -1,7 +1,6 @@
 package entity.map;
 
 import entity.organism.animal.Animal;
-import entity.organism.animal.herbivore.Horse;
 import entity.organism.plant.Plant;
 import lombok.Getter;
 
@@ -10,10 +9,14 @@ import java.util.List;
 
 @Getter
 public class IslandCell {
+    private final int x;
+    private final int y;
     private final List<Animal> animals;
     private final List<Plant> plants;
 
-    public IslandCell() {
+    public IslandCell(int x, int y) {
+        this.x = x;
+        this.y = y;
         animals = new ArrayList<>();
         plants = new ArrayList<>();
     }
@@ -22,25 +25,4 @@ public class IslandCell {
         animals.add(animal);
     }
 
-    public void removeAnimal(Animal animal) {
-        animals.remove(animal);
-    }
-
-    public List<Animal> getHerbivores() {
-        List<Animal> herbivores = new ArrayList<>();
-        for (Animal animal : animals) {
-            if (animal instanceof Horse) {
-                herbivores.add(animal);
-            }
-        }
-        return herbivores;
-    }
-
-    public void addPlant(Plant plant) {
-        plants.add(plant);
-    }
-
-    public void removePlant(Plant plant) {
-        plants.remove(plant);
-    }
 }

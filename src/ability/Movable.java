@@ -1,4 +1,4 @@
-package abstraction.entity;
+package ability;
 
 public interface Movable {
     void move();

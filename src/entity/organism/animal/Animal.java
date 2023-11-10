@@ -1,23 +1,61 @@
 package entity.organism.animal;
 
-import abstraction.entity.Eatable;
-import abstraction.entity.Movable;
-import entity.map.IslandCell;
+import ability.Eatable;
+import ability.Movable;
+import ability.Reproducible;
 import entity.organism.Organism;
+import entity.organism.animal.herbivore.Herbivore;
+import entity.organism.animal.predator.Predator;
+import entity.organism.plant.Plant;
 import lombok.Getter;
-
-import java.util.List;
+import lombok.Setter;
+import settings.BaseOrganismSettings;
 
 @Getter
-public abstract class Animal extends Organism implements Movable, Eatable {
-    IslandCell islandCell = new IslandCell();
+@Setter
+public abstract class Animal extends Organism implements Movable, Eatable, Reproducible {
+    private boolean eaten = false;
+    private boolean reproduced = false;
+    private Animal pair;
+    private double currentSatiety;
 
-    public String name;
-    public String category;
+    public Animal(BaseOrganismSettings animalSettings) {
+        super(animalSettings);
+        this.currentSatiety = animalSettings.getFoodNeeded();
 
-    public Animal(String name, String category) {
-        this.name = name;
-        this.category = category;
+    }
+
+    @Override
+    public void eat(Object food) {
+        if (food instanceof Animal) {
+            if (this instanceof Predator) {
+                eatPrey((Animal) food);
+            }
+        } else if (food instanceof Plant) {
+            if (this instanceof Herbivore) {
+                eatPlant((Plant) food);
+            }
+        }
+    }
+
+    public void eatPrey(Animal prey) {
+        prey.setEaten(true);
+    }
+
+    public void eatPlant(Plant plant) {
+        plant.setEaten(true);
+    }
+
+    @Override
+    public Animal reproduce(Animal partner) {
+        if (partner != null && partner.getClass() == getClass()) {
+            try {
+                return partner.getClass().getConstructor().newInstance();
+            } catch (Exception e) {
+                throw new RuntimeException("Error while reproducing!", e);
+            }
+        }
+        return null;
     }
 
     @Override
@@ -25,29 +63,16 @@ public abstract class Animal extends Organism implements Movable, Eatable {
 
     }
 
-    @Override
-    public void eat() {
-        List<Animal> animalsOnCell = islandCell.getAnimals();
-
-        for (Animal otherAnimal : animalsOnCell) {
-            if (otherAnimal != this) {
-                if (isPredator() && otherAnimal.isHerbivore()) {
-                    this.eatAnimal(otherAnimal);
-                }
-
-            }
-        }
+    public boolean hasEaten() {
+        return eaten;
     }
 
-    public void eatAnimal(Animal otherAnimal) {
-        IslandCell cell = islandCell;
-        cell.removeAnimal(otherAnimal);
-    }
-    public boolean isPredator() {
-        return this.category.equals("Predator");
+    public boolean hasReproduced() {
+        return reproduced;
     }
 
-    public boolean isHerbivore() {
-        return this.category.equals("Herbivore");
+    public boolean hasPair() {
+        return pair != null;
     }
+
 }

@@ -11,9 +11,14 @@ public class FilePropertyReader {
         try {
             FileInputStream input = new FileInputStream("./src/properties/animal_properties.properties");
             animalProperties.load(input);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException("Error loading properties from the file!", e);
         }
+    }
+
+    public String loadIcon(String animalName) {
+        String icon = animalName + ".icon";
+        return animalProperties.getProperty(icon, "");
     }
 
     public String loadMaxQuantity(String animalName) {
@@ -21,17 +26,19 @@ public class FilePropertyReader {
         return String.valueOf(Integer.parseInt(animalProperties.getProperty(maxQuantityKey, "0")));
     }
 
-    public int loadHungerLevel(String animalName) {
-        int hunger = 0;
-        try {
-            FileInputStream input = new FileInputStream("./src/properties/animal_properties.properties");
-            animalProperties.load(input);
-            String hungerKey = animalName + ".food_needed";
-            hunger = Integer.parseInt(animalProperties.getProperty(hungerKey));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return hunger;
+    public int loadWeight(String animalName) {
+        String weight = animalName + ".weight";
+        return Integer.parseInt(animalProperties.getProperty(weight, "0"));
     }
+
+    public int loadSpeed(String animalName) {
+        String speed = animalName + ".speed";
+        return Integer.parseInt(animalProperties.getProperty(speed, "0"));
+    }
+
+    public double loadFoodNeeded(String animalName) {
+        String foodNeeded = animalName + ".food_needed";
+        return Double.parseDouble(animalProperties.getProperty(foodNeeded, "0"));
+    }
+
 }
