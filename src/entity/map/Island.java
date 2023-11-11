@@ -93,6 +93,6 @@ public class Island {
     }
 
     public IslandCell getTargetCell(int targetX, int targetY) {
-        return cells[targetY][targetX];
+        return cells[targetX][targetY];
     }
 }

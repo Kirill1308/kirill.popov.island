@@ -8,10 +8,7 @@ import entity.organism.animal.predator.Predator;
 import entity.organism.plant.Plant;
 import printer.StatisticViewProvider;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class AnimalSimulator {
@@ -116,7 +113,6 @@ public class AnimalSimulator {
         }
     }
 
-
     public void reproduceAnimal(Animal animal, List<Animal> animals, List<String> events) {
         if (!animal.hasReproduced()) {
             List<Animal> potentialPartners = findReproductivePartners(animal, animals);
@@ -188,12 +184,12 @@ public class AnimalSimulator {
             case 3 -> targetY = (currentY + 1) % 2;         // Down
         }
 
-        return island.getTargetCell(targetY, targetX);
+        return island.getTargetCell(targetX,targetY);
     }
 
     private void removeEatenEntities(List<Animal> animals, List<Plant> plants) {
-        animals.removeAll(eatenPrey);
-        plants.removeAll(eatenPlant);
+        animals.removeIf(eatenPrey::contains);
+        plants.removeIf(eatenPlant::contains);
     }
 
     private Optional<Animal> findPrey(List<Animal> animals) {
