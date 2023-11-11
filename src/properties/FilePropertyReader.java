@@ -44,5 +44,4 @@ public class FilePropertyReader {
         String foodNeeded = animalName + ".food_needed";
         return Double.parseDouble(animalProperties.getProperty(foodNeeded, "0"));
     }
-
 }

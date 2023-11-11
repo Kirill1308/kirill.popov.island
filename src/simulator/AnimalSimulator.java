@@ -17,8 +17,7 @@ public class AnimalSimulator {
     private final List<Object> eatenPlant = new ArrayList<>();
     private IslandCell currentCell;
 
-
-    public synchronized void simulate(IslandCell islandCell, Island island) {
+    public synchronized void startSimulation(IslandCell islandCell, Island island) {
         currentCell = islandCell;
         List<Animal> animals = islandCell.getAnimals();
         List<Plant> plants = islandCell.getPlants();
@@ -29,18 +28,15 @@ public class AnimalSimulator {
             System.out.println();
         } else {
             provider.printAnimalAndPlantDetails(animals, plants, currentCell);
-            simulateAnimalEvents(animals, plants, island);
+            runAnimalSimulation(animals, plants, island);
         }
         currentCell = null;
     }
 
-    public void simulateAnimalEvents(List<Animal> animals, List<Plant> plants, Island island) {
-        while ((hasHerbivores(animals) && hasPlants(plants)) || (hasPredators(animals) && hasPlants(plants)) || !hasPlants(plants)) {
-            List<String> events = simulateTime(animals, plants, island);
-            printEvents(events);
-
-            provider.printCellCoordinatesAndOrganismCounts(animals, plants, currentCell);
-            System.out.println();
+    public void runAnimalSimulation(List<Animal> animals, List<Plant> plants, Island island) {
+        while (shouldContinueSimulation(animals, plants)) {
+            List<String> events = processAnimalActions(animals, plants, island);
+            printSimulationState(events, animals, plants);
 
             if (shouldEndSimulation(animals, plants)) {
                 printSimulationEndedMessage(currentCell);
@@ -49,7 +45,19 @@ public class AnimalSimulator {
         }
     }
 
-    public List<String> simulateTime(List<Animal> animals, List<Plant> plants, Island island) {
+    private boolean shouldContinueSimulation(List<Animal> animals, List<Plant> plants) {
+        return (hasHerbivores(animals) || hasPredators(animals))
+                && hasPlants(plants) || !hasPlants(plants);
+    }
+
+    private void printSimulationState(List<String> events, List<Animal> animals, List<Plant> plants) {
+        provider.printCellCoordinatesAndOrganismCounts(animals, plants, currentCell);
+        System.out.println();
+        printEvents(events);
+    }
+
+
+    public List<String> processAnimalActions(List<Animal> animals, List<Plant> plants, Island island) {
         List<String> events = new ArrayList<>();
         List<Animal> toRemove = new ArrayList<>();
 

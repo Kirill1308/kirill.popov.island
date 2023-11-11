@@ -39,18 +39,6 @@ public class StatisticViewProvider {
         return entities.stream().filter(entityType::isInstance).count();
     }
 
-
-    private void printOrganismCount(List<? extends Organism> entities, Class<? extends Organism> entityType) {
-        int count = countOrganismsOfType(entities, entityType);
-        String emoji = propertyReader.loadIcon(entityType.getSimpleName());
-        printCountAndEmoji(count, emoji);
-    }
-
-    private void printCountAndEmoji(int count, String emoji) {
-        System.out.print(emoji + "(" + count + ")" + "\t");
-    }
-
-
     public void printAnimalAndPlantDetails(List<Animal> animals, List<Plant> plants, IslandCell islandCell) {
         System.out.println("=".repeat(45));
         System.out.println("Current organisms in cell [" + islandCell.getX() + "][" + islandCell.getY() + "]:");
@@ -84,5 +72,4 @@ public class StatisticViewProvider {
     private int countOrganismsOfType(List<? extends Organism> entities, Class<? extends Organism> entityType) {
         return (int) entities.stream().filter(entityType::isInstance).count();
     }
-
 }

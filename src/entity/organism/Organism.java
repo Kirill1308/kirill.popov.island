@@ -4,7 +4,7 @@ import lombok.Getter;
 import settings.BaseOrganismSettings;
 
 @Getter
-public abstract class Organism  {
+public abstract class Organism {
     private final String icon;
     private final double defaultWeight;
     private final int maxPopulation;
@@ -17,5 +17,4 @@ public abstract class Organism  {
         this.defaultWeight = organismSettings.getWeight();
         this.id = lastId++;
     }
-
 }

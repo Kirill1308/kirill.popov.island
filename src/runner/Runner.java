@@ -29,7 +29,7 @@ public class Runner {
             for (int j = 0; j < cells[i].length; j++) {
                 final int finalI = i;
                 final int finalJ = j;
-                threads[i][j] = new Thread(() -> simulator.simulate(cells[finalI][finalJ], island));
+                threads[i][j] = new Thread(() -> simulator.startSimulation(cells[finalI][finalJ], island));
                 threads[i][j].start();
             }
         }

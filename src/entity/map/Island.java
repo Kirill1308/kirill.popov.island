@@ -11,9 +11,12 @@ import java.util.List;
 import java.util.Random;
 
 public class Island {
+    private static final int MAX_PLANTS = 10;
+    private static final int MAX_ANIMALS = 10;
     @Getter
     private final IslandCell[][] cells;
     private final FilePropertyReader filePropertyReader = new FilePropertyReader();
+    private final Random random = new Random();
 
     public Island(int width, int height) {
         cells = new IslandCell[width][height];
@@ -34,21 +37,22 @@ public class Island {
     }
 
     public void populateIsland() {
-        Random random = new Random();
         for (IslandCell[] islandCells : cells) {
             for (IslandCell cell : islandCells) {
                 addRandomNumOfPlantsToCell(cell);
-
-                int numAnimals = random.nextInt(10);
-                for (int k = 0; k < numAnimals; k++) {
-                    addRandomAnimalToCell(cell);
-                }
+                addRandomAnimalsToCell(cell);
             }
         }
     }
 
+    private void addRandomAnimalsToCell(IslandCell cell) {
+        int numAnimals = random.nextInt(MAX_ANIMALS);
+        for (int k = 0; k < numAnimals; k++) {
+            addRandomAnimalToCell(cell);
+        }
+    }
+
     private void addRandomAnimalToCell(IslandCell cell) {
-        Random random = new Random();
         AnimalType[] animalTypes = AnimalType.values();
         int randomIndex = random.nextInt(animalTypes.length);
         AnimalType animalType = animalTypes[randomIndex];
@@ -72,8 +76,7 @@ public class Island {
     }
 
     private void addRandomNumOfPlantsToCell(IslandCell cell) {
-        Random random = new Random();
-        int numOfPlants = random.nextInt(10);
+        int numOfPlants = random.nextInt(MAX_PLANTS);
         List<Plant> plants = cell.getPlants();
         for (int i = 0; i < numOfPlants; i++) {
             plants.add(new Grass());
