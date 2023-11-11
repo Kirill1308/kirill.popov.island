@@ -12,7 +12,7 @@ public class Runner {
     private final AnimalSimulator simulator = new AnimalSimulator();
 
     public void run() {
-        userHandler.readCoordinates();
+        userHandler.readIslandDimensions();
         Island island = new Island(userHandler.width, userHandler.height);
         island.populateIsland();
 

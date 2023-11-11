@@ -6,5 +6,4 @@ public class Horse extends Herbivore {
     public Horse() {
         super(new BaseOrganismSettings(Horse.class.getSimpleName()));
     }
-
 }

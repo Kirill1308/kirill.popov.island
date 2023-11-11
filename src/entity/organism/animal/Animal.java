@@ -22,7 +22,6 @@ public abstract class Animal extends Organism implements Movable, Eatable, Repro
     public Animal(BaseOrganismSettings animalSettings) {
         super(animalSettings);
         this.currentSatiety = animalSettings.getFoodNeeded();
-
     }
 
     @Override

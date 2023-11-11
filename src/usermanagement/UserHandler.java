@@ -7,20 +7,20 @@ public class UserHandler {
     public int width;
     public int height;
 
-    public void readCoordinates() {
-        width = readCoordinate("WIDTH of your Island");
-        height = readCoordinate("HEIGHT of your Island");
+    public void readIslandDimensions() {
+        width = readCoordinate("WIDTH (number of columns)");
+        height = readCoordinate("HEIGHT (number of rows)");
+
     }
 
-    private int readCoordinate(String coordinateName) {
-        int coordinate = 0;
-        boolean validInput = false;
+    private int readCoordinate(String dimensionName) {
+        int coordinate;
 
-        while (!validInput) {
-            System.out.print("Input " + coordinateName + ": ");
+        while (true) {
+            System.out.print("Enter the " + dimensionName + " of your Island: ");
             if (scanner.hasNextInt()) {
                 coordinate = scanner.nextInt();
-                validInput = true;
+                break;
             } else {
                 System.out.println("Invalid input. Please enter a valid integer.");
                 scanner.nextLine();
