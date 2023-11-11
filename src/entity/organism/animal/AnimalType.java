@@ -1,9 +1,7 @@
 package entity.organism.animal;
 
-import entity.organism.animal.herbivore.Horse;
-import entity.organism.animal.herbivore.Rabbit;
-import entity.organism.animal.predator.Bear;
-import entity.organism.animal.predator.Wolf;
+import entity.organism.animal.herbivore.*;
+import entity.organism.animal.predator.*;
 import lombok.Getter;
 import settings.BaseOrganismSettings;
 
@@ -11,8 +9,19 @@ import settings.BaseOrganismSettings;
 public enum AnimalType {
     WOLF(Wolf.class, new BaseOrganismSettings(Wolf.class.getSimpleName())),
     BEAR(Bear.class, new BaseOrganismSettings(Bear.class.getSimpleName())),
+    PYTHON(Python.class, new BaseOrganismSettings(Python.class.getSimpleName())),
+    EAGLE(Eagle.class, new BaseOrganismSettings(Eagle.class.getSimpleName())),
+    FOX(Fox.class, new BaseOrganismSettings(Fox.class.getSimpleName())),
     RABBIT(Rabbit.class, new BaseOrganismSettings(Rabbit.class.getSimpleName())),
-    HORSE(Horse.class, new BaseOrganismSettings(Horse.class.getSimpleName()));
+    BOAR(Boar.class, new BaseOrganismSettings(Boar.class.getSimpleName())),
+    BUFFALO(Buffalo.class, new BaseOrganismSettings(Buffalo.class.getSimpleName())),
+    DEER(Deer.class, new BaseOrganismSettings(Deer.class.getSimpleName())),
+    DUCK(Duck.class, new BaseOrganismSettings(Duck.class.getSimpleName())),
+    GOAT(Goat.class, new BaseOrganismSettings(Goat.class.getSimpleName())),
+    MOUSE(Mouse.class, new BaseOrganismSettings(Mouse.class.getSimpleName())),
+    SHEEP(Sheep.class, new BaseOrganismSettings(Sheep.class.getSimpleName())),
+    HORSE(Horse.class, new BaseOrganismSettings(Horse.class.getSimpleName())),
+    CATERPILLAR(Caterpillar.class, new BaseOrganismSettings(Caterpillar.class.getSimpleName()));
 
     private final Class<? extends Animal> animalClass;
     private final BaseOrganismSettings animalSettings;

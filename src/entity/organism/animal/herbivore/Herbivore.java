@@ -7,5 +7,4 @@ public abstract class Herbivore extends Animal {
     public Herbivore(BaseOrganismSettings organismSettings) {
         super(organismSettings);
     }
-
 }

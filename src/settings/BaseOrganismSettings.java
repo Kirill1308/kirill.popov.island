@@ -7,7 +7,7 @@ import properties.FilePropertyReader;
 public class BaseOrganismSettings {
     private final FilePropertyReader filePropertyReader = new FilePropertyReader();
     private final String icon;
-    private final int weight;
+    private final double weight;
     private final int maxQuantity;
     private final int speed;
     private final double foodNeeded;

@@ -30,9 +30,9 @@ public class FilePropertyReader {
         return String.valueOf(Integer.parseInt(animalProperties.getProperty(maxQuantityKey, "0")));
     }
 
-    public int loadWeight(String animalName) {
+    public double loadWeight(String animalName) {
         String weight = animalName + ".weight";
-        return Integer.parseInt(animalProperties.getProperty(weight, "0"));
+        return Double.parseDouble(animalProperties.getProperty(weight, "0.0"));
     }
 
     public int loadSpeed(String animalName) {

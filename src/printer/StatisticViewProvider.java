@@ -3,10 +3,8 @@ package printer;
 import entity.map.IslandCell;
 import entity.organism.Organism;
 import entity.organism.animal.Animal;
-import entity.organism.animal.herbivore.Horse;
-import entity.organism.animal.herbivore.Rabbit;
-import entity.organism.animal.predator.Bear;
-import entity.organism.animal.predator.Wolf;
+import entity.organism.animal.herbivore.*;
+import entity.organism.animal.predator.*;
 import entity.organism.plant.Grass;
 import entity.organism.plant.Plant;
 import properties.FilePropertyReader;
@@ -24,7 +22,16 @@ public class StatisticViewProvider {
     private void printAllOrganismCounts(List<Animal> animals, List<Plant> plants) {
         printOrganismCountAndEmoji(animals, Wolf.class);
         printOrganismCountAndEmoji(animals, Bear.class);
-        printOrganismCountAndEmoji(animals, Rabbit.class);
+        printOrganismCountAndEmoji(animals, Python.class);
+        printOrganismCountAndEmoji(animals, Eagle.class);
+        printOrganismCountAndEmoji(animals, Fox.class);
+        printOrganismCountAndEmoji(animals, Boar.class);
+        printOrganismCountAndEmoji(animals, Buffalo.class);
+        printOrganismCountAndEmoji(animals, Deer.class);
+        printOrganismCountAndEmoji(animals, Duck.class);
+        printOrganismCountAndEmoji(animals, Goat.class);
+        printOrganismCountAndEmoji(animals, Mouse.class);
+        printOrganismCountAndEmoji(animals, Sheep.class);
         printOrganismCountAndEmoji(animals, Horse.class);
         printOrganismCountAndEmoji(plants, Grass.class);
     }
@@ -40,7 +47,7 @@ public class StatisticViewProvider {
     }
 
     public void printAnimalAndPlantDetails(List<Animal> animals, List<Plant> plants, IslandCell islandCell) {
-        System.out.println("=".repeat(45));
+        System.out.println("=".repeat(117));
         System.out.println("Current organisms in cell [" + islandCell.getX() + "][" + islandCell.getY() + "]:");
 
         printOrganismsDetails(plants);

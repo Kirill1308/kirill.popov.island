@@ -16,20 +16,20 @@ public class Runner {
         Island island = new Island(userHandler.width, userHandler.height);
         island.populateIsland();
 
-        System.out.println("=".repeat(45));
+        System.out.println("=".repeat(117));
         System.out.println("Island is populated!");
-        System.out.println("=".repeat(45));
+        System.out.println("=".repeat(117));
 
         IslandCell[][] cells = island.getCells();
         provider.printCellStatistics(cells);
 
         runSimulationsInParallel(cells, island);
 
-        System.out.println("=".repeat(45));
+        System.out.println("=".repeat(117));
         System.out.println("Finish!");
-        System.out.println("=".repeat(45));
+        System.out.println("=".repeat(117));
         provider.printCellStatistics(cells);
-        System.out.println("=".repeat(45));
+        System.out.println("=".repeat(117));
     }
 
     private void runSimulationsInParallel(IslandCell[][] cells, Island island) {

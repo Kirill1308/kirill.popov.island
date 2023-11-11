@@ -51,9 +51,9 @@ public class AnimalSimulator {
     }
 
     private void printSimulationState(List<String> events, List<Animal> animals, List<Plant> plants) {
+        printEvents(events);
         provider.printCellCoordinatesAndOrganismCounts(animals, plants, currentCell);
         System.out.println();
-        printEvents(events);
     }
 
 
@@ -186,14 +186,15 @@ public class AnimalSimulator {
         int targetY = currentY;
 
         switch (direction) {
-            case 0 -> targetX = (currentX - 1 + 2) % 2;     // Left
-            case 1 -> targetX = (currentX + 1) % 2;         // Right
-            case 2 -> targetY = (currentY - 1 + 2) % 2;     // Up
-            case 3 -> targetY = (currentY + 1) % 2;         // Down
+            case 0 -> targetX = Math.max(0, currentX - 1);  // Left
+            case 1 -> targetX = Math.min(island.getCells().length - 1, currentX + 1);  // Right
+            case 2 -> targetY = Math.max(0, currentY - 1);  // Up
+            case 3 -> targetY = Math.min(island.getCells()[0].length - 1, currentY + 1);  // Down
         }
 
-        return island.getTargetCell(targetX,targetY);
+        return island.getTargetCell(targetX, targetY);
     }
+
 
     private void removeEatenEntities(List<Animal> animals, List<Plant> plants) {
         animals.removeIf(eatenPrey::contains);
@@ -214,19 +215,19 @@ public class AnimalSimulator {
 
     private void printEvents(List<String> events) {
         if (!events.isEmpty()) {
-            System.out.println("=".repeat(45));
+            System.out.println("=".repeat(117));
             events.forEach(System.out::println);
             System.out.println();
         }
     }
 
     private void printNoAnimalsPresent() {
-        System.out.println("=".repeat(45));
+        System.out.println("=".repeat(117));
         System.out.println("No animals are present in cell [" + currentCell.getX() + "][" + currentCell.getY() + "].");
     }
 
     private synchronized void printSimulationEndedMessage(IslandCell islandCell) {
-        System.out.println("=".repeat(45));
+        System.out.println("=".repeat(117));
         System.out.println("Simulation ended in cell [" + islandCell.getX() + "][" + islandCell.getY() + "].");
     }
 
