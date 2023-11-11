@@ -17,7 +17,6 @@ public class StatisticViewProvider {
     public synchronized void printCellCoordinatesAndOrganismCounts(List<Animal> animals, List<Plant> plants, IslandCell islandCell) {
         System.out.printf("(%d, %2d)\t", islandCell.getX(), islandCell.getY());
         printAllOrganismCounts(animals, plants);
-        System.out.println();
     }
 
 
