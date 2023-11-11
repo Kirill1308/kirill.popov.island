@@ -12,19 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 public class AnimalSimulator {
     private final StatisticViewProvider provider = new StatisticViewProvider();
     private final List<Object> eatenPrey = new ArrayList<>();
     private final List<Object> eatenPlant = new ArrayList<>();
-    private final ExecutorService threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     private IslandCell currentCell;
 
 
-    public void simulate(IslandCell islandCell, Island island) {
+    public synchronized void simulate(IslandCell islandCell, Island island) {
         currentCell = islandCell;
         List<Animal> animals = islandCell.getAnimals();
         List<Plant> plants = islandCell.getPlants();
@@ -37,12 +34,11 @@ public class AnimalSimulator {
             provider.printAnimalNames(animals, plants, currentCell);
             simulateAnimalEvents(animals, plants, island);
         }
-        // Reset the current cell after simulation
         currentCell = null;
     }
 
     public void simulateAnimalEvents(List<Animal> animals, List<Plant> plants, Island island) {
-        while ((hasHerbivores(animals) && hasPlants(plants)) || (hasPredators(animals) && hasPlants(plants))) {
+        while ((hasHerbivores(animals) && hasPlants(plants)) || (hasPredators(animals) && hasPlants(plants)) || !hasPlants(plants)) {
             List<String> events = simulateTime(animals, plants, island);
             printEvents(events);
 
@@ -192,7 +188,7 @@ public class AnimalSimulator {
             case 3 -> targetY = (currentY + 1) % 2;         // Down
         }
 
-        return island.getTargetCell(targetX, targetY);
+        return island.getTargetCell(targetY, targetX);
     }
 
     private void removeEatenEntities(List<Animal> animals, List<Plant> plants) {
@@ -216,6 +212,7 @@ public class AnimalSimulator {
         if (!events.isEmpty()) {
             System.out.println("=".repeat(45));
             events.forEach(System.out::println);
+            System.out.println();
         }
     }
 
@@ -224,7 +221,7 @@ public class AnimalSimulator {
         System.out.println("No animals are present in cell [" + currentCell.getX() + "][" + currentCell.getY() + "].");
     }
 
-    private void printSimulationEndedMessage(IslandCell islandCell) {
+    private synchronized void printSimulationEndedMessage(IslandCell islandCell) {
         System.out.println("=".repeat(45));
         System.out.println("Simulation ended in cell [" + islandCell.getX() + "][" + islandCell.getY() + "].");
     }

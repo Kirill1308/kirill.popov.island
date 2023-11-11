@@ -2,7 +2,6 @@ package runner;
 
 import entity.map.Island;
 import entity.map.IslandCell;
-import entity.organism.animal.predator.Wolf;
 import printer.StatisticViewProvider;
 import simulator.AnimalSimulator;
 import usermanagement.UserHandler;
@@ -24,10 +23,24 @@ public class Runner {
         IslandCell[][] cells = island.getCells();
         provider.printCellStatistics(cells);
 
+        Thread[][] threads = new Thread[cells.length][cells[0].length];
 
-        for (IslandCell[] cell : cells) {
-            for (IslandCell islandCell : cell) {
-                simulator.simulate(islandCell, island);
+        for (int i = 0; i < cells.length; i++) {
+            for (int j = 0; j < cells[i].length; j++) {
+                final int finalI = i;
+                final int finalJ = j;
+                threads[i][j] = new Thread(() -> simulator.simulate(cells[finalI][finalJ], island));
+                threads[i][j].start();
+            }
+        }
+
+        for (int i = 0; i < cells.length; i++) {
+            for (int j = 0; j < cells[i].length; j++) {
+                try {
+                    threads[i][j].join();
+                } catch (Exception e) {
+                    throw new RuntimeException("Thread interrupted while waiting for completion: ", e);
+                }
             }
         }
 

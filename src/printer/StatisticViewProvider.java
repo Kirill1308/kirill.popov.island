@@ -13,7 +13,7 @@ import java.util.List;
 
 public class StatisticViewProvider {
 
-    public void printStatistic(List<Animal> animals, List<Plant> plants, IslandCell islandCell) {
+    public synchronized void printStatistic(List<Animal> animals, List<Plant> plants, IslandCell islandCell) {
         System.out.print("(" + islandCell.getX() + ", " + islandCell.getY() + ")\t");
 
         int numWolves = countAnimalsOfType(animals, Wolf.class);
