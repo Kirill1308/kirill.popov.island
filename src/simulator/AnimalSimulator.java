@@ -28,10 +28,10 @@ public class AnimalSimulator {
 
         if (animals.isEmpty()) {
             printNoAnimalsPresent();
-            provider.printStatistic(animals, plants, currentCell);
+            provider.printCellCoordinatesAndOrganismCounts(animals, plants, currentCell);
             System.out.println();
         } else {
-            provider.printAnimalNames(animals, plants, currentCell);
+            provider.printAnimalAndPlantDetails(animals, plants, currentCell);
             simulateAnimalEvents(animals, plants, island);
         }
         currentCell = null;
@@ -42,7 +42,7 @@ public class AnimalSimulator {
             List<String> events = simulateTime(animals, plants, island);
             printEvents(events);
 
-            provider.printStatistic(animals, plants, currentCell);
+            provider.printCellCoordinatesAndOrganismCounts(animals, plants, currentCell);
             System.out.println();
 
             if (shouldEndSimulation(animals, plants)) {
