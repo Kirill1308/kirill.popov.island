@@ -1,6 +1,7 @@
 ### IntelliJ IDEA ###
 .idea
 *.iml
+.gitignore
 out/
 target
 !**/src/main/**/out/
