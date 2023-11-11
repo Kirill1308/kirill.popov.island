@@ -23,31 +23,35 @@ public class Runner {
         IslandCell[][] cells = island.getCells();
         provider.printCellStatistics(cells);
 
-        Thread[][] threads = new Thread[cells.length][cells[0].length];
-
-        for (int i = 0; i < cells.length; i++) {
-            for (int j = 0; j < cells[i].length; j++) {
-                final int finalI = i;
-                final int finalJ = j;
-                threads[i][j] = new Thread(() -> simulator.startSimulation(cells[finalI][finalJ], island));
-                threads[i][j].start();
-            }
-        }
-
-        for (int i = 0; i < cells.length; i++) {
-            for (int j = 0; j < cells[i].length; j++) {
-                try {
-                    threads[i][j].join();
-                } catch (Exception e) {
-                    throw new RuntimeException("Thread interrupted while waiting for completion: ", e);
-                }
-            }
-        }
+        runSimulationsInParallel(cells, island);
 
         System.out.println("=".repeat(45));
         System.out.println("Finish!");
         System.out.println("=".repeat(45));
         provider.printCellStatistics(cells);
         System.out.println("=".repeat(45));
+    }
+
+    private void runSimulationsInParallel(IslandCell[][] cells, Island island) {
+        Thread[][] threads = new Thread[cells.length][cells[0].length];
+
+        for (int i = 0; i < cells.length; i++) {
+            for (int j = 0; j < cells[i].length; j++) {
+                int finalI = i;
+                int finalJ = j;
+                threads[i][j] = new Thread(() -> simulator.startSimulation(cells[finalI][finalJ], island));
+                threads[i][j].start();
+            }
+        }
+
+        for (Thread[] threadRow : threads) {
+            for (Thread thread : threadRow) {
+                try {
+                    thread.join();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException("Thread interrupted while waiting for completion: ", e);
+                }
+            }
+        }
     }
 }
