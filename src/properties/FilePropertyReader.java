@@ -7,6 +7,10 @@ import java.util.Properties;
 public class FilePropertyReader {
     private final Properties animalProperties = new Properties();
 
+    public FilePropertyReader() {
+        loadAnimalProperties();
+    }
+
     public void loadAnimalProperties() {
         try {
             FileInputStream input = new FileInputStream("./src/properties/animal_properties.properties");
@@ -18,7 +22,7 @@ public class FilePropertyReader {
 
     public String loadIcon(String animalName) {
         String icon = animalName + ".icon";
-        return animalProperties.getProperty(icon, "");
+        return animalProperties.getProperty(icon, "UNKNOWN");
     }
 
     public String loadMaxQuantity(String animalName) {

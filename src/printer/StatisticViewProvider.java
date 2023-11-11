@@ -8,26 +8,36 @@ import entity.organism.animal.predator.Bear;
 import entity.organism.animal.predator.Wolf;
 import entity.organism.plant.Grass;
 import entity.organism.plant.Plant;
+import properties.FilePropertyReader;
+import settings.BaseOrganismSettings;
 
 import java.util.List;
 
 public class StatisticViewProvider {
+    private final FilePropertyReader propertyReader = new FilePropertyReader();
 
     public synchronized void printStatistic(List<Animal> animals, List<Plant> plants, IslandCell islandCell) {
         System.out.print("(" + islandCell.getX() + ", " + islandCell.getY() + ")\t");
 
-        int numWolves = countAnimalsOfType(animals, Wolf.class);
-        int numBears = countAnimalsOfType(animals, Bear.class);
-        int numRabbits = countAnimalsOfType(animals, Rabbit.class);
-        int numHorses = countAnimalsOfType(animals, Horse.class);
-        int numPlants = countPlantsOfType(plants, Grass.class);
-
-        System.out.print("🐺 " + "(" + numWolves + ")" + "\t");
-        System.out.print("🐻" + "(" + numBears + ")" + "\t");
-        System.out.print("🐰" + "(" + numRabbits + ")" + "\t");
-        System.out.print("🐴" + "(" + numHorses + ")" + "\t");
-        System.out.print("🌱" + "(" + numPlants + ")" + "\t");
+        printAnimalCount(animals, Wolf.class);
+        printAnimalCount(animals, Bear.class);
+        printAnimalCount(animals, Rabbit.class);
+        printAnimalCount(animals, Horse.class);
+        printPlantCount(plants, Grass.class);
     }
+
+    private void printAnimalCount(List<Animal> animals, Class<? extends Animal> animalType) {
+        int count = countAnimalsOfType(animals, animalType);
+        String emoji = propertyReader.loadIcon(animalType.getSimpleName());
+        System.out.print(emoji + "(" + count + ")" + "\t");
+    }
+
+    private void printPlantCount(List<Plant> plants, Class<? extends Plant> plantType) {
+        int count = countPlantsOfType(plants, plantType);
+        String emoji = propertyReader.loadIcon(plantType.getSimpleName());
+        System.out.print(emoji + "(" + count + ")" + "\t");
+    }
+
 
     public void printAnimalNames(List<Animal> animals, List<Plant> plants, IslandCell islandCell) {
         System.out.println("=".repeat(45));
