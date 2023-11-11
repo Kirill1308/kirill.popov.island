@@ -1,7 +1,7 @@
 package entity.map;
 
-import entity.organism.animal.Animal;
 import entity.organism.plant.Plant;
+import entity.organism.animal.Animal;
 import lombok.Getter;
 
 import java.util.ArrayList;

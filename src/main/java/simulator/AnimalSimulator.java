@@ -2,10 +2,10 @@ package simulator;
 
 import entity.map.Island;
 import entity.map.IslandCell;
-import entity.organism.animal.Animal;
-import entity.organism.animal.herbivore.Herbivore;
 import entity.organism.animal.predator.Predator;
 import entity.organism.plant.Plant;
+import entity.organism.animal.Animal;
+import entity.organism.animal.herbivore.Herbivore;
 import printer.StatisticViewProvider;
 
 import java.util.*;

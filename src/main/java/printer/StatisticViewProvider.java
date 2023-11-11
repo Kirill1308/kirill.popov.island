@@ -1,13 +1,13 @@
 package printer;
 
 import entity.map.IslandCell;
+import entity.organism.plant.Grass;
+import entity.organism.plant.Plant;
 import entity.organism.Organism;
 import entity.organism.animal.Animal;
 import entity.organism.animal.herbivore.*;
 import entity.organism.animal.predator.*;
-import entity.organism.plant.Grass;
-import entity.organism.plant.Plant;
-import properties.FilePropertyReader;
+import properties.reader.FilePropertyReader;
 
 import java.util.List;
 
@@ -15,9 +15,11 @@ public class StatisticViewProvider {
     private final FilePropertyReader propertyReader = new FilePropertyReader();
 
     public synchronized void printCellCoordinatesAndOrganismCounts(List<Animal> animals, List<Plant> plants, IslandCell islandCell) {
-        System.out.printf("(%d, %d)\t", islandCell.getX(), islandCell.getY());
+        System.out.printf("(%d, %2d)\t", islandCell.getX(), islandCell.getY());
         printAllOrganismCounts(animals, plants);
+        System.out.println();
     }
+
 
     private void printAllOrganismCounts(List<Animal> animals, List<Plant> plants) {
         printOrganismCountAndEmoji(animals, Wolf.class);

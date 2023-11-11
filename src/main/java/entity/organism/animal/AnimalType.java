@@ -3,6 +3,7 @@ package entity.organism.animal;
 import entity.organism.animal.herbivore.*;
 import entity.organism.animal.predator.*;
 import lombok.Getter;
+
 import settings.BaseOrganismSettings;
 
 @Getter

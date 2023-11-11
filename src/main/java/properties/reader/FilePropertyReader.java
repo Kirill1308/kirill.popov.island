@@ -1,4 +1,4 @@
-package properties;
+package properties.reader;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -13,7 +13,7 @@ public class FilePropertyReader {
 
     public void loadAnimalProperties() {
         try {
-            FileInputStream input = new FileInputStream("./src/properties/animal_properties.properties");
+            FileInputStream input = new FileInputStream("./src/main/resources/animal_properties.properties");
             animalProperties.load(input);
         } catch (Exception e) {
             throw new RuntimeException("Error loading properties from the file!", e);

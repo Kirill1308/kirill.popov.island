@@ -1,7 +1,7 @@
 package settings;
 
 import lombok.Getter;
-import properties.FilePropertyReader;
+import properties.reader.FilePropertyReader;
 
 @Getter
 public class BaseOrganismSettings {

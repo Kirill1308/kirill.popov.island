@@ -1,10 +1,10 @@
 package entity.map;
 
-import entity.organism.animal.Animal;
-import entity.organism.animal.AnimalType;
 import entity.organism.plant.Grass;
 import entity.organism.plant.Plant;
-import properties.FilePropertyReader;
+import entity.organism.animal.Animal;
+import entity.organism.animal.AnimalType;
+import properties.reader.FilePropertyReader;
 import lombok.Getter;
 
 import java.util.List;
